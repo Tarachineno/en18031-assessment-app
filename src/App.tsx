@@ -5,6 +5,7 @@ import { ProtectedRoute } from './components/auth';
 import { AppLayout } from './components/layout';
 import { Dashboard } from './components/dashboard';
 import { ProjectList } from './components/project';
+import { ProjectDetail } from './components/project/ProjectDetail';
 import { AssessmentList } from './components/assessment';
 import { EvidenceManager } from './components/evidence';
 import { ReportsList } from './components/reports';
@@ -18,6 +19,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/projects" element={<ProjectList />} />
+              <Route path="/projects/:id" element={<ProjectDetail />} />
               <Route path="/assessments" element={<AssessmentList />} />
               <Route path="/evidence" element={<EvidenceManager />} />
               <Route path="/reports" element={<ReportsList />} />
