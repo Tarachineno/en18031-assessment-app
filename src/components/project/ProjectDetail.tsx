@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Card, Button, Badge, ProgressBar } from '../common';
 import { useProjectStore, useAssessmentStore, useEvidenceStore } from '../../stores';
 import { exportSingleProject, generateProjectReport } from '../../utils/exportUtils';
 
 export const ProjectDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const { getProject, getProjectProgress, setCurrentProject } = useProjectStore();
   const { getAssessmentsByProject, assessments } = useAssessmentStore();
   const { files } = useEvidenceStore();
@@ -74,8 +75,20 @@ export const ProjectDetail: React.FC = () => {
           )}
         </div>
         <div className="flex space-x-3">
-          <Button variant="secondary">Edit Project</Button>
-          <Button>Start Assessment</Button>
+          <Button 
+            variant="secondary"
+            onClick={() => {
+              // TODO: Implement edit project modal
+              console.log('Edit project clicked');
+            }}
+          >
+            Edit Project
+          </Button>
+          <Button 
+            onClick={() => navigate('/assessments')}
+          >
+            Start Assessment
+          </Button>
         </div>
       </div>
 

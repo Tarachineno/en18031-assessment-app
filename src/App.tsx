@@ -7,6 +7,7 @@ import { Dashboard } from './components/dashboard';
 import { ProjectList } from './components/project';
 import { ProjectDetail } from './components/project/ProjectDetail';
 import { AssessmentList } from './components/assessment';
+import { AssessmentExecution } from './components/assessment/AssessmentExecution';
 import { EvidenceManager } from './components/evidence';
 import { ReportsList } from './components/reports';
 
@@ -21,6 +22,7 @@ function App() {
               <Route path="/projects" element={<ProjectList />} />
               <Route path="/projects/:id" element={<ProjectDetail />} />
               <Route path="/assessments" element={<AssessmentList />} />
+              <Route path="/projects/:projectId/assessments/:testCaseId" element={<AssessmentExecution />} />
               <Route path="/evidence" element={<EvidenceManager />} />
               <Route path="/reports" element={<ReportsList />} />
             </Routes>

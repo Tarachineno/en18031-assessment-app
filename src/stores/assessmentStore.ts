@@ -126,30 +126,12 @@ export const useAssessmentStore = create<AssessmentState>()(
         set({ isLoading: true, error: null });
         
         try {
-          // TODO: Load actual test cases from data files
-          // For now, create mock test cases
-          const mockTestCases: TestCase[] = [
-            {
-              id: generateId(),
-              mechanism: 'ACM',
-              mechanismNumber: 1,
-              assessmentType: 'conceptual',
-              title: 'Access Control Mechanism - Conceptual Assessment',
-              objective: 'Verify the conceptual design of access control mechanisms',
-              prerequisites: 'System documentation and design specifications',
-              testProcedures: 'Review design documentation and verify access control concepts',
-              assessmentUnits: 'Design documents, specifications',
-              resultRationale: 'Conceptual assessment based on design review',
-              source: standard,
-              section: '5.1.1',
-              order: 1,
-              testSteps: [],
-            },
-            // Add more mock test cases as needed
-          ];
+          // Import test cases dynamically to avoid loading issues
+          const { getTestCasesByStandard } = await import('../data/testCases');
+          const loadedTestCases = getTestCasesByStandard(standard);
 
           set(state => ({
-            testCases: [...state.testCases.filter(tc => tc.source !== standard), ...mockTestCases],
+            testCases: [...state.testCases.filter(tc => tc.source !== standard), ...loadedTestCases],
             isLoading: false,
           }));
         } catch (error) {

@@ -42,7 +42,7 @@ export const useProjectStore = create<ProjectState>()(
           const newProject: Project = {
             id: generateId(),
             ...data,
-            status: 'draft',
+            status: 'active',
             createdAt: now,
             updatedAt: now,
             createdBy: 'current_user', // TODO: Get from auth context
