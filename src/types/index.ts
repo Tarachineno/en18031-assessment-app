@@ -63,6 +63,7 @@ export interface TestStep {
 // Assessment related types
 export type AssessmentResult = 'pass' | 'fail' | 'na';
 
+
 export interface Assessment {
   id: string;
   projectId: string;

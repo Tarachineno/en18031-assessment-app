@@ -45,7 +45,12 @@ export const useAssessmentStore = create<AssessmentState>()(
           const newAssessment: Assessment = {
             id: generateId(),
             projectId,
-            ...data,
+            testCaseId: data.testCaseId,
+            result: data.result,
+            justification: data.justification,
+            comments: data.comments,
+            testPerformedOn: data.testPerformedOn,
+            testExecutedBy: data.testExecutedBy,
             evidenceFiles: [],
             testStepResults: data.testStepResults || [],
             assessedAt: now,

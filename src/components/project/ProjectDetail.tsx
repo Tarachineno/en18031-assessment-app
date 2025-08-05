@@ -1,25 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Card, Button, Badge, ProgressBar } from '../common';
+import { ImportExportModal } from './ImportExportModal';
 import { useProjectStore, useAssessmentStore, useEvidenceStore } from '../../stores';
-import { exportSingleProject, generateProjectReport } from '../../utils/exportUtils';
+import { generateProjectReport } from '../../utils/exportUtils';
 
 export const ProjectDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const [isImportExportModalOpen, setIsImportExportModalOpen] = useState(false);
   const { getProject, getProjectProgress, setCurrentProject } = useProjectStore();
-  const { getAssessmentsByProject, assessments } = useAssessmentStore();
+  const { getAssessmentsByProject, assessments, testCases } = useAssessmentStore();
   const { files } = useEvidenceStore();
 
   const project = id ? getProject(id) : null;
   const progress = id ? getProjectProgress(id) : null;
   const projectAssessments = id ? getAssessmentsByProject(id) : [];
 
-  const handleExportProject = () => {
-    if (project) {
-      exportSingleProject(project, assessments, files);
-    }
-  };
 
   const handleGenerateReport = () => {
     if (project) {
@@ -188,7 +185,7 @@ export const ProjectDetail: React.FC = () => {
                 <div className="text-gray-400 text-4xl mb-4">📊</div>
                 <h3 className="text-lg font-medium text-gray-900 mb-2">No assessments yet</h3>
                 <p className="text-gray-500 mb-4">Start by creating your first assessment for this project.</p>
-                <Button>Start First Assessment</Button>
+                <Button onClick={() => navigate('/assessments')}>Start First Assessment</Button>
               </div>
             ) : (
               <div className="space-y-4">
@@ -259,7 +256,11 @@ export const ProjectDetail: React.FC = () => {
           {/* Quick Actions */}
           <Card title="Quick Actions">
             <div className="space-y-3">
-              <Button className="w-full justify-start" variant="ghost">
+              <Button 
+                className="w-full justify-start" 
+                variant="ghost"
+                onClick={() => navigate('/assessments')}
+              >
                 <span className="mr-3">📊</span>
                 Start Assessment
               </Button>
@@ -278,15 +279,27 @@ export const ProjectDetail: React.FC = () => {
               <Button 
                 className="w-full justify-start" 
                 variant="ghost"
-                onClick={handleExportProject}
+                onClick={() => setIsImportExportModalOpen(true)}
               >
-                <span className="mr-3">📤</span>
-                Export Data
+                <span className="mr-3">⚡</span>
+                Import / Export
               </Button>
             </div>
           </Card>
         </div>
       </div>
+
+      {/* Import/Export Modal */}
+      {project && (
+        <ImportExportModal
+          isOpen={isImportExportModalOpen}
+          onClose={() => setIsImportExportModalOpen(false)}
+          project={project}
+          assessments={assessments}
+          evidenceFiles={files}
+          testCases={testCases}
+        />
+      )}
     </div>
   );
 };

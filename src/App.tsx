@@ -7,7 +7,7 @@ import { Dashboard } from './components/dashboard';
 import { ProjectList } from './components/project';
 import { ProjectDetail } from './components/project/ProjectDetail';
 import { AssessmentList } from './components/assessment';
-import { AssessmentExecution } from './components/assessment/AssessmentExecution';
+import { AssessmentExecution } from './components/assessment';
 import { EvidenceManager } from './components/evidence';
 import { ReportsList } from './components/reports';
 

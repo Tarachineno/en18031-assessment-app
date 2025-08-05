@@ -16,7 +16,8 @@ export const AssessmentList: React.FC = () => {
   const { projects, getProjectsByStatus } = useProjectStore();
   const { assessments, loadTestCases } = useAssessmentStore();
 
-  const activeProjects = getProjectsByStatus('active');
+  // Get both active and draft projects for assessments
+  const activeProjects = [...getProjectsByStatus('active'), ...getProjectsByStatus('draft')];
   const allTestCases = getAllTestCases();
 
   useEffect(() => {
